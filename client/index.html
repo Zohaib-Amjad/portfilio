@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/src/assets/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#08090B" />
+    <meta
+      name="description"
+      content="Zohaib is a frontend developer building fast, thoughtful digital products with Next.js, TypeScript, Tailwind CSS, Payload CMS, and Supabase."
+    />
+    <meta name="author" content="Zohaib" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Zohaib — Frontend Developer" />
+    <meta
+      property="og:description"
+      content="Frontend engineering, content platforms, and product experiences built with intent."
+    />
+    <meta property="og:image" content="/favicon.svg" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Zohaib — Frontend Developer" />
+    <meta
+      name="twitter:description"
+      content="Frontend engineering, content platforms, and product experiences built with intent."
+    />
+    <title>Zohaib — Frontend Developer</title>
+    <script>
+      const savedTheme = localStorage.getItem('portfolio-theme')
+      const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches
+      document.documentElement.classList.toggle(
+        'light',
+        savedTheme ? savedTheme === 'light' : prefersLight,
+      )
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
