@@ -1,0 +1,416 @@
+import { useEffect, useState } from 'react'
+import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion'
+import {
+  CornerDownLeft,
+  BriefcaseBusiness,
+  CalendarDays,
+  FileText,
+  FolderKanban,
+  GraduationCap,
+  Mail,
+  Menu,
+  Moon,
+  Search,
+  Sparkles,
+  Sun,
+  UserRound,
+  Volume2,
+  VolumeX,
+  X,
+} from 'lucide-react'
+import { projects } from '@/data/projects'
+import { skillGroups } from '@/data/skills'
+import logo from '@/assets/Logo.png'
+import { assetUrl } from '@/lib/assetUrl'
+
+const links = [
+  { label: 'About', href: '#about', icon: UserRound },
+  { label: 'Experience', href: '#experience', icon: BriefcaseBusiness },
+  { label: 'Education', href: '#education', icon: GraduationCap },
+  { label: 'Projects', href: '#projects', icon: FolderKanban },
+  { label: 'Skills', href: '#skills', icon: Sparkles },
+  { label: 'Activity', href: '#activity', icon: CalendarDays },
+  { label: 'Resume', href: '#resume', icon: FileText },
+  { label: 'Contact', href: '#contact', icon: Mail },
+]
+
+const searchItems = [
+  ...links.map((link) => ({ ...link, category: 'Section' })),
+  ...projects.map((project) => ({
+    label: project.title,
+    href: '#projects',
+    category: 'Project',
+  })),
+  ...skillGroups.flatMap((group) =>
+    group.skills.map((skill) => ({
+      label: skill.name,
+      href: '#skills',
+      category: group.title,
+    })),
+  ),
+]
+
+function Logo() {
+  return (
+    <a href="#home" className="group flex items-center gap-3" aria-label="Zohaib — home">
+      <span className="brand-logo-frame flex h-10 w-20 items-center justify-center overflow-hidden rounded-xl border border-accent/30 shadow-glow transition-transform duration-300 group-hover:-rotate-1 group-hover:scale-[1.03] sm:w-24 lg:h-12 lg:w-36">
+        <img
+          src={assetUrl(logo)}
+          alt="Zohaib"
+          className="brand-logo h-full w-full object-cover object-center"
+          width="144"
+          height="48"
+        />
+      </span>
+    </a>
+  )
+}
+
+export default function Navbar({
+  soundEnabled,
+  soundVolume,
+  onSoundToggle,
+  onSoundVolumeChange,
+}) {
+  const [open, setOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
+  const [query, setQuery] = useState('')
+  const [scrolled, setScrolled] = useState(false)
+  const [isLight, setIsLight] = useState(false)
+  const { scrollYProgress } = useScroll()
+  const progress = useSpring(scrollYProgress, {
+    stiffness: 180,
+    damping: 30,
+    restDelta: 0.001,
+  })
+
+  useEffect(() => {
+    setIsLight(document.documentElement.classList.contains('light'))
+  }, [])
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 16)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  useEffect(() => {
+    const onKeyDown = (event) => {
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+        event.preventDefault()
+        setSearchOpen((current) => !current)
+      }
+
+      if (event.key === 'Escape') {
+        setSearchOpen(false)
+      }
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [])
+
+  useEffect(() => {
+    document.body.style.overflow = searchOpen ? 'hidden' : ''
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [searchOpen])
+
+  const toggleTheme = () => {
+    const nextIsLight = !isLight
+    setIsLight(nextIsLight)
+    document.documentElement.classList.toggle('light', nextIsLight)
+    window.localStorage.setItem('portfolio-theme', nextIsLight ? 'light' : 'dark')
+  }
+
+  return (
+    <>
+      <header
+      className={`fixed left-1/2 top-4 z-50 w-[calc(100%-2rem)] max-w-[1180px] -translate-x-1/2 overflow-visible rounded-2xl border border-white/10 bg-background/80 backdrop-blur-xl transition-all duration-300 ${
+        scrolled
+          ? 'bg-background/95 shadow-[0_18px_55px_rgba(0,0,0,0.24)]'
+          : 'shadow-[0_12px_40px_rgba(0,0,0,0.14)]'
+      }`}
+    >
+      <nav className="relative flex h-16 items-center justify-between px-5 sm:px-6" aria-label="Main navigation">
+        <Logo />
+
+        <div className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-0.5 lg:flex xl:gap-1">
+          {links.map((link) => {
+            const Icon = link.icon
+            return (
+              <a key={link.href} href={link.href} className="nav-link">
+                <span className="nav-cloak" aria-hidden="true" />
+                <Icon size={13} strokeWidth={1.8} className="relative z-[1] opacity-80" />
+                <span className="relative z-[1]">{link.label}</span>
+              </a>
+            )
+          })}
+        </div>
+
+        <div className="flex items-center gap-1 sm:gap-2">
+          <SearchButton onClick={() => setSearchOpen(true)} />
+          <SoundToggle
+            enabled={soundEnabled}
+            volume={soundVolume}
+            onToggle={onSoundToggle}
+            onVolumeChange={onSoundVolumeChange}
+          />
+          <ThemeToggle isLight={isLight} onToggle={toggleTheme} />
+          <button
+            type="button"
+            className="grid h-11 w-11 place-items-center rounded-xl border border-white/10 text-heading lg:hidden"
+            aria-label={open ? 'Close navigation' : 'Open navigation'}
+            aria-expanded={open}
+            onClick={() => setOpen((current) => !current)}
+          >
+            {open ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
+      </nav>
+
+      <div
+        className="mx-4 h-[2px] w-[calc(100%-2rem)] overflow-hidden rounded-full bg-white/[.04]"
+        aria-hidden="true"
+      >
+        <motion.div
+          className="h-full origin-left bg-accent shadow-glow"
+          style={{ scaleX: progress }}
+        />
+      </div>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            className="border-b border-white/10 bg-background/95 px-5 pb-6 backdrop-blur-xl lg:hidden"
+          >
+            {links.map((link) => {
+              const Icon = link.icon
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="flex items-center gap-3 border-b border-white/5 py-4 font-mono text-sm capitalize text-muted"
+                  onClick={() => setOpen(false)}
+                >
+                  <Icon size={16} strokeWidth={1.8} className="text-accent" />
+                  {link.label}
+                </a>
+              )
+            })}
+          </motion.div>
+        )}
+      </AnimatePresence>
+      </header>
+      <CommandSearch
+        open={searchOpen}
+        query={query}
+        onQueryChange={setQuery}
+        onClose={() => {
+          setSearchOpen(false)
+          setQuery('')
+        }}
+      />
+    </>
+  )
+}
+
+function SearchButton({ onClick }) {
+  return (
+    <button
+      type="button"
+      className="icon-button h-10 w-10"
+      aria-label="Search portfolio"
+      title="Search portfolio (Ctrl + K)"
+      onClick={onClick}
+    >
+      <Search size={17} />
+    </button>
+  )
+}
+
+function SoundToggle({ enabled, volume, onToggle, onVolumeChange }) {
+  const [controlsOpen, setControlsOpen] = useState(false)
+
+  return (
+    <div
+      className="relative"
+      onMouseEnter={() => setControlsOpen(true)}
+      onMouseLeave={() => setControlsOpen(false)}
+      onFocus={() => setControlsOpen(true)}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) setControlsOpen(false)
+      }}
+    >
+      <button
+        type="button"
+        className="icon-button h-10 w-10"
+        aria-label={enabled ? 'Mute weather sounds' : 'Enable weather sounds'}
+        aria-pressed={enabled}
+        aria-expanded={controlsOpen}
+        title={enabled ? 'Mute weather sounds' : 'Enable weather sounds'}
+        onClick={() => {
+          setControlsOpen(true)
+          onToggle()
+        }}
+      >
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.span
+            key={enabled ? 'sound-on' : 'sound-off'}
+            className="grid place-items-center"
+            initial={{ opacity: 0, scale: 0.7 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.7 }}
+            transition={{ duration: 0.16 }}
+          >
+            {enabled ? <Volume2 size={17} /> : <VolumeX size={17} />}
+          </motion.span>
+        </AnimatePresence>
+      </button>
+
+      <AnimatePresence>
+        {controlsOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -6, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -6, scale: 0.96 }}
+            className="absolute right-0 top-12 z-[70] w-48 rounded-xl border border-white/10 bg-panel/95 p-4 shadow-2xl backdrop-blur-xl"
+          >
+            <div className="mb-3 flex items-center justify-between gap-3">
+              <span className="font-mono text-[10px] uppercase tracking-wider text-muted">
+                Weather volume
+              </span>
+              <span className="font-mono text-[10px] text-accent">
+                {Math.round(volume * 100)}%
+              </span>
+            </div>
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.05"
+              value={volume}
+              onChange={(event) => onVolumeChange(Number(event.target.value))}
+              className="sound-range block w-full cursor-pointer"
+              aria-label="Weather sound volume"
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
+
+function CommandSearch({ open, query, onQueryChange, onClose }) {
+  const normalizedQuery = query.trim().toLowerCase()
+  const results = searchItems
+    .filter((item) =>
+      `${item.label} ${item.category}`.toLowerCase().includes(normalizedQuery),
+    )
+    .slice(0, 8)
+
+  return (
+    <AnimatePresence>
+      {open && (
+        <motion.div
+          className="fixed inset-0 z-[80] bg-background/75 px-4 pt-24 backdrop-blur-md"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) onClose()
+          }}
+        >
+          <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Search portfolio"
+            className="mx-auto max-w-xl overflow-hidden rounded-2xl border border-white/10 bg-panel shadow-2xl"
+            initial={{ opacity: 0, y: -16, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.98 }}
+          >
+            <div className="flex items-center gap-3 border-b border-white/10 px-5">
+              <Search size={19} className="shrink-0 text-accent" />
+              <input
+                autoFocus
+                type="search"
+                value={query}
+                onChange={(event) => onQueryChange(event.target.value)}
+                placeholder="Search sections, projects, or skills..."
+                className="h-16 w-full bg-transparent text-sm text-heading outline-none placeholder:text-faint"
+              />
+              <kbd className="rounded-md border border-white/10 px-2 py-1 font-mono text-[10px] text-muted">
+                ESC
+              </kbd>
+            </div>
+
+            <div className="max-h-[22rem] overflow-y-auto p-2">
+              {results.length ? (
+                results.map((item, index) => (
+                  <a
+                    key={`${item.category}-${item.label}-${index}`}
+                    href={item.href}
+                    onClick={onClose}
+                    className="group flex items-center justify-between rounded-xl px-4 py-3 transition-colors hover:bg-accent/10"
+                  >
+                    <span>
+                      <span className="block text-sm font-medium text-heading">
+                        {item.label}
+                      </span>
+                      <span className="mt-1 block font-mono text-[10px] uppercase tracking-wider text-muted">
+                        {item.category}
+                      </span>
+                    </span>
+                    <CornerDownLeft
+                      size={16}
+                      className="text-faint transition-colors group-hover:text-accent"
+                    />
+                  </a>
+                ))
+              ) : (
+                <p className="px-4 py-10 text-center text-sm text-muted">
+                  No matching result found.
+                </p>
+              )}
+            </div>
+
+            <div className="border-t border-white/10 px-5 py-3 font-mono text-[10px] text-muted">
+              Tip: press Ctrl + K from anywhere
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  )
+}
+
+function ThemeToggle({ isLight, onToggle }) {
+  return (
+    <button
+      type="button"
+      className="icon-button h-10 w-10"
+      aria-label={`Switch to ${isLight ? 'dark' : 'light'} theme`}
+      title={`Switch to ${isLight ? 'dark' : 'light'} theme`}
+      onClick={onToggle}
+    >
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.span
+          key={isLight ? 'sun' : 'moon'}
+          className="grid place-items-center"
+          initial={{ opacity: 0, rotate: -45, scale: 0.7 }}
+          animate={{ opacity: 1, rotate: 0, scale: 1 }}
+          exit={{ opacity: 0, rotate: 45, scale: 0.7 }}
+          transition={{ duration: 0.18 }}
+        >
+          {isLight ? <Sun size={17} /> : <Moon size={17} />}
+        </motion.span>
+      </AnimatePresence>
+    </button>
+  )
+}
