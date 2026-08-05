@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title">
+  <title id="title">Green metallic star medallion</title>
+  <defs>
+    <radialGradient id="outerMetal" cx="35%" cy="28%" r="76%">
+      <stop offset="0" stop-color="#f0f5dc"/>
+      <stop offset=".18" stop-color="#9ca88a"/>
+      <stop offset=".42" stop-color="#39463b"/>
+      <stop offset=".62" stop-color="#c6cdb4"/>
+      <stop offset=".82" stop-color="#566255"/>
+      <stop offset="1" stop-color="#161e19"/>
+    </radialGradient>
+    <radialGradient id="innerMetal" cx="38%" cy="31%" r="72%">
+      <stop offset="0" stop-color="#e5efd2"/>
+      <stop offset=".28" stop-color="#7e927d"/>
+      <stop offset=".52" stop-color="#26362d"/>
+      <stop offset=".76" stop-color="#91a58d"/>
+      <stop offset="1" stop-color="#18231c"/>
+    </radialGradient>
+    <linearGradient id="enamel" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#9ac875"/>
+      <stop offset=".34" stop-color="#355f43"/>
+      <stop offset=".68" stop-color="#102d20"/>
+      <stop offset="1" stop-color="#6a9b63"/>
+    </linearGradient>
+    <linearGradient id="blade" x1=".15" y1=".12" x2=".86" y2=".9">
+      <stop stop-color="#f3f5df"/>
+      <stop offset=".27" stop-color="#81917f"/>
+      <stop offset=".5" stop-color="#26352e"/>
+      <stop offset=".7" stop-color="#d4dac3"/>
+      <stop offset="1" stop-color="#58675a"/>
+    </linearGradient>
+    <radialGradient id="core" cx="35%" cy="28%" r="70%">
+      <stop stop-color="#c9f08f"/>
+      <stop offset=".38" stop-color="#488357"/>
+      <stop offset=".72" stop-color="#173d2a"/>
+      <stop offset="1" stop-color="#081a10"/>
+    </radialGradient>
+    <filter id="shadow" x="-35%" y="-35%" width="170%" height="180%">
+      <feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#020805" flood-opacity=".9"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#61b96d" flood-opacity=".45"/>
+    </filter>
+    <filter id="inset" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1.2" result="blur"/>
+      <feOffset dx="1" dy="1" result="offset"/>
+      <feComposite in="SourceGraphic" in2="offset" operator="arithmetic" k2="1" k3="-1"/>
+    </filter>
+    <pattern id="etch" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(35)">
+      <path d="M0 1h5" stroke="#d5dfc7" stroke-opacity=".16" stroke-width=".7"/>
+      <path d="M0 3.5h5" stroke="#06120b" stroke-opacity=".34" stroke-width=".65"/>
+    </pattern>
+  </defs>
+
+  <g filter="url(#shadow)">
+    <circle cx="64" cy="64" r="57" fill="#07110b" stroke="#8cb48b" stroke-width="1.5"/>
+    <circle cx="64" cy="64" r="53.5" fill="url(#outerMetal)" stroke="#d6dec7" stroke-opacity=".72"/>
+    <circle cx="64" cy="64" r="48.5" fill="#17231b" stroke="#09120c" stroke-width="2"/>
+    <circle cx="64" cy="64" r="45.5" fill="url(#innerMetal)" stroke="#afbaa8" stroke-width="1.2"/>
+    <circle cx="64" cy="64" r="40.5" fill="url(#enamel)" stroke="#18271d" stroke-width="2"/>
+    <circle cx="64" cy="64" r="39" fill="url(#etch)"/>
+
+    <g fill="#17251b" stroke="#b2c0aa" stroke-opacity=".65" stroke-width=".8">
+      <path d="M64 15l2.2 7.5L64 28l-2.2-5.5z"/>
+      <path d="M113 64l-7.5 2.2L100 64l5.5-2.2z"/>
+      <path d="M64 113l-2.2-7.5L64 100l2.2 5.5z"/>
+      <path d="M15 64l7.5-2.2L28 64l-5.5 2.2z"/>
+      <path d="M98.6 29.4l-3.8 6.8-5.4 1.5 1.5-5.4z"/>
+      <path d="M98.6 98.6l-6.8-3.8-1.5-5.4 5.4 1.5z"/>
+      <path d="M29.4 98.6l3.8-6.8 5.4-1.5-1.5 5.4z"/>
+      <path d="M29.4 29.4l6.8 3.8 1.5 5.4-5.4-1.5z"/>
+    </g>
+
+    <g fill="url(#blade)" stroke="#15231b" stroke-linejoin="round" stroke-width="1.1">
+      <path d="M64 25l7.2 29.8L64 64l-7.2-9.2z"/>
+      <path d="M103 64l-29.8 7.2L64 64l9.2-7.2z"/>
+      <path d="M64 103l-7.2-29.8L64 64l7.2 9.2z"/>
+      <path d="M25 64l29.8-7.2L64 64l-9.2 7.2z"/>
+      <path d="M91.6 36.4L75.4 62.1 64 64l1.9-11.4z"/>
+      <path d="M91.6 91.6L65.9 75.4 64 64l11.4 1.9z"/>
+      <path d="M36.4 91.6L52.6 65.9 64 64l-1.9 11.4z"/>
+      <path d="M36.4 36.4L62.1 52.6 64 64l-11.4-1.9z"/>
+    </g>
+
+    <g fill="none" stroke="#dce5d4" stroke-linecap="round" opacity=".52">
+      <path d="M64 28v27"/>
+      <path d="M100 64H73"/>
+      <path d="M64 100V73"/>
+      <path d="M28 64h27"/>
+      <path d="M89 39L70 58"/>
+      <path d="M89 89L70 70"/>
+      <path d="M39 89l19-19"/>
+      <path d="M39 39l19 19"/>
+    </g>
+
+    <circle cx="64" cy="64" r="10.5" fill="#111e16" stroke="#aebb9f" stroke-width="1.5"/>
+    <circle cx="64" cy="64" r="7" fill="url(#core)" stroke="#d5e0c5" stroke-opacity=".65"/>
+    <circle cx="61.8" cy="61.5" r="2.2" fill="#e9ffd4" opacity=".65"/>
+
+    <circle cx="64" cy="64" r="50.5" fill="none" stroke="#e4ead9" stroke-opacity=".4" filter="url(#inset)"/>
+    <path d="M28 42a43 43 0 0 1 53-21" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2" opacity=".28"/>
+  </g>
+</svg>

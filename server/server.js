@@ -4,6 +4,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const connectDB = require('./config/db');
 const contactRoutes = require('./routes/contactRoutes');
+const chatRoutes = require('./routes/chatRoutes');
 const { notFound, errorHandler } = require('./middleware/errorHandler');
 
 const app = express();
@@ -35,6 +36,7 @@ app.get('/api/health', (req, res) => {
 });
 
 app.use('/api/contact', contactRoutes);
+app.use('/api/chat', chatRoutes);
 app.use(notFound);
 app.use(errorHandler);
 

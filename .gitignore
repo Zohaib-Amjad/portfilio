@@ -5,3 +5,4 @@ client/dist/
 coverage/
 *.log
 .DS_Store
+tools/out/

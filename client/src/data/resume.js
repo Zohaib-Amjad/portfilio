@@ -1,12 +1,12 @@
 export const experience = [
   {
-    role: 'Frontend Developer Intern',
+    role: 'Full-Stack Developer Intern',
     company: 'HOF-Global',
     location: null,
     duration: 'Present',
     current: true,
     highlights: [
-      'Developing practical frontend experience while contributing to modern digital products.',
+      'Developing practical full-stack experience while contributing to modern digital products.',
     ],
   },
   {

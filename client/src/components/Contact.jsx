@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import {
   AlertCircle,
@@ -11,16 +11,71 @@ import {
   X,
 } from 'lucide-react'
 import SectionHeading from './SectionHeading'
+import SocialLinks from './SocialLinks'
 import { profile } from '../data/profile'
 
 const initialForm = { name: '', email: '', message: '' }
 const API_URL = (import.meta.env.VITE_API_URL || 'http://localhost:5000').replace(/\/$/, '')
+const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY || ''
+
+function loadRecaptchaScript() {
+  if (!RECAPTCHA_SITE_KEY || window.grecaptcha) return Promise.resolve()
+
+  return new Promise((resolve, reject) => {
+    const existing = document.querySelector('script[data-recaptcha]')
+    if (existing) {
+      existing.addEventListener('load', () => resolve())
+      existing.addEventListener('error', reject)
+      return
+    }
+
+    const script = document.createElement('script')
+    script.src = 'https://www.google.com/recaptcha/api.js'
+    script.async = true
+    script.defer = true
+    script.dataset.recaptcha = 'true'
+    script.onload = () => resolve()
+    script.onerror = reject
+    document.body.appendChild(script)
+  })
+}
 
 export default function Contact() {
   const [form, setForm] = useState(initialForm)
   const [status, setStatus] = useState({ type: '', message: '' })
   const [fieldErrors, setFieldErrors] = useState({})
   const [submitting, setSubmitting] = useState(false)
+  const [captchaReady, setCaptchaReady] = useState(!RECAPTCHA_SITE_KEY)
+  const captchaRef = useRef(null)
+  const widgetIdRef = useRef(null)
+
+  useEffect(() => {
+    if (!RECAPTCHA_SITE_KEY) return undefined
+
+    let cancelled = false
+
+    loadRecaptchaScript()
+      .then(() => {
+        if (cancelled || !captchaRef.current || widgetIdRef.current !== null) return
+        widgetIdRef.current = window.grecaptcha.render(captchaRef.current, {
+          sitekey: RECAPTCHA_SITE_KEY,
+          theme: document.documentElement.classList.contains('light') ? 'light' : 'dark',
+        })
+        setCaptchaReady(true)
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setStatus({
+            type: 'error',
+            message: 'reCAPTCHA failed to load. Refresh and try again.',
+          })
+        }
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [])
 
   const updateField = ({ target: { name, value } }) => {
     setForm((current) => ({ ...current, [name]: value }))
@@ -33,11 +88,21 @@ export default function Contact() {
     setStatus({ type: '', message: '' })
     setFieldErrors({})
 
+    const recaptchaToken = RECAPTCHA_SITE_KEY
+      ? window.grecaptcha?.getResponse(widgetIdRef.current ?? undefined)
+      : 'dev-bypass'
+
+    if (RECAPTCHA_SITE_KEY && !recaptchaToken) {
+      setFieldErrors({ recaptcha: 'Please complete the reCAPTCHA check.' })
+      setSubmitting(false)
+      return
+    }
+
     try {
       const response = await fetch(`${API_URL}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, recaptchaToken }),
       })
       const payload = await response.json()
 
@@ -50,6 +115,9 @@ export default function Contact() {
       }
 
       setForm(initialForm)
+      if (RECAPTCHA_SITE_KEY && window.grecaptcha) {
+        window.grecaptcha.reset(widgetIdRef.current ?? undefined)
+      }
       setStatus({ type: 'success', message: payload.message })
     } catch (error) {
       setStatus({
@@ -70,7 +138,7 @@ export default function Contact() {
         <SectionHeading
           label="Contact"
           title="Let’s build something."
-          description="Have a product idea, a tricky frontend problem, or a project that needs momentum? Tell me about it."
+          description="Have a product idea, a full-stack engineering challenge, or a project that needs momentum? Tell me about it."
         />
 
         <div className="grid gap-10 lg:grid-cols-[.7fr_1.3fr]">
@@ -94,6 +162,13 @@ export default function Contact() {
                 href={`tel:${profile.phone.replaceAll(' ', '')}`}
               />
               <ContactDetail icon={MapPin} label={profile.location} />
+            </div>
+
+            <div className="mt-8">
+              <p className="mb-3 font-mono text-[10px] uppercase tracking-[.2em] text-muted">
+                Social
+              </p>
+              <SocialLinks />
             </div>
           </motion.div>
 
@@ -137,6 +212,23 @@ export default function Contact() {
               />
               {fieldErrors.message && <p id="message-error" className="field-error">{fieldErrors.message}</p>}
             </div>
+
+            {RECAPTCHA_SITE_KEY ? (
+              <div className="sm:col-span-2">
+                <div ref={captchaRef} className="g-recaptcha" />
+                {fieldErrors.recaptcha && (
+                  <p className="field-error">{fieldErrors.recaptcha}</p>
+                )}
+                {!captchaReady && (
+                  <p className="font-mono text-[10px] text-muted">Loading reCAPTCHA…</p>
+                )}
+              </div>
+            ) : (
+              <p className="font-mono text-[10px] text-faint sm:col-span-2">
+                Set `VITE_RECAPTCHA_SITE_KEY` to enable reCAPTCHA in production.
+              </p>
+            )}
+
             <div className="flex items-center justify-between gap-4 sm:col-span-2">
               <p className="hidden font-mono text-[10px] text-muted sm:block">Replies usually within 1–2 days.</p>
               <button type="submit" disabled={submitting} className="button-primary ml-auto disabled:cursor-not-allowed disabled:opacity-60">

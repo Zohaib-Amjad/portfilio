@@ -26,6 +26,10 @@ const contactValidation = [
     .withMessage('Message is required.')
     .isLength({ min: 10, max: 2000 })
     .withMessage('Message must be between 10 and 2,000 characters.'),
+  body('recaptchaToken')
+    .optional({ nullable: true })
+    .isString()
+    .withMessage('Invalid reCAPTCHA token.'),
 ];
 
 router.post('/', contactValidation, createMessage);

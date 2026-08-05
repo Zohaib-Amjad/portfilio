@@ -2,8 +2,10 @@ import { motion } from 'framer-motion'
 import { ArrowDown, ArrowUpRight, Download } from 'lucide-react'
 import { useTypingEffect } from '../hooks/useTypingEffect'
 import { profile } from '../data/profile'
+import HoverLetters from './HoverLetters'
+import HeroTerminal from './HeroTerminal'
 
-const roles = ['Frontend Developer', 'Building CodivZ']
+const roles = ['Full-Stack Developer', 'Software Engineer', 'Building CodivZ']
 
 export default function Hero() {
   const typedRole = useTypingEffect(roles)
@@ -25,8 +27,10 @@ export default function Hero() {
             {profile.status}
           </p>
           <h1 className="max-w-4xl font-display text-5xl font-bold leading-[.95] tracking-[-0.055em] text-heading sm:text-7xl lg:text-[5.8rem]">
-            I build digital
-            <span className="block text-gradient">experiences.</span>
+            <HoverLetters text="I build digital" />
+            <span className="block text-gradient">
+              <HoverLetters text="experiences." />
+            </span>
           </h1>
           <p className="mt-7 flex min-h-8 items-center font-mono text-sm text-muted sm:text-base">
             <span className="mr-3 text-accent">&gt;</span>
@@ -34,8 +38,8 @@ export default function Hero() {
             <span className="ml-1 h-5 w-2 animate-cursor bg-accent" aria-hidden="true" />
           </p>
           <p className="mt-6 max-w-xl text-base leading-8 text-muted sm:text-lg">
-            I&apos;m Zohaib — a frontend developer turning complex ideas into fast,
-            thoughtful interfaces that feel effortless to use.
+            I&apos;m Zohaib — a full-stack developer and software engineer turning
+            complex ideas into reliable, thoughtful digital products.
           </p>
 
           <div className="mt-10 flex flex-wrap gap-4">
@@ -48,39 +52,7 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.15 }}
-          className="relative ml-auto hidden w-full max-w-lg lg:block lg:justify-self-end"
-          aria-hidden="true"
-        >
-          <div className="code-window storm-card">
-            <div className="flex items-center gap-2 border-b border-white/10 px-5 py-4">
-              <span className="h-2.5 w-2.5 rounded-full bg-[#4a5560]" />
-              <span className="h-2.5 w-2.5 rounded-full bg-[#5d6b74]" />
-              <span className="h-2.5 w-2.5 rounded-full bg-accent/70" />
-              <span className="ml-auto font-mono text-[11px] text-muted">developer.tsx</span>
-            </div>
-            <pre className="overflow-hidden p-7 font-mono text-[13px] leading-7 text-code">
-              <code>
-                <span className="text-steel">const</span> developer = {'{\n'}
-                {'  '}name: <span className="text-moss">&apos;Zohaib&apos;</span>,{'\n'}
-                {'  '}focus: <span className="text-moss">&apos;frontend&apos;</span>,{'\n'}
-                {'  '}stack: [{'\n'}
-                {'    '}<span className="text-moss">&apos;Next.js&apos;</span>,{'\n'}
-                {'    '}<span className="text-moss">&apos;TypeScript&apos;</span>,{'\n'}
-                {'    '}<span className="text-moss">&apos;Payload CMS&apos;</span>{'\n'}
-                {'  '}],{'\n'}
-                {'  '}ships: <span className="text-steel">true</span>{'\n'}
-                {'}'}
-              </code>
-            </pre>
-          </div>
-          <div className="absolute -bottom-6 right-4 rounded-xl border border-accent/25 bg-panel px-5 py-3 font-mono text-xs text-accent shadow-2xl">
-            storm_protocol: online
-          </div>
-        </motion.div>
+        <HeroTerminal />
       </div>
 
       <a
