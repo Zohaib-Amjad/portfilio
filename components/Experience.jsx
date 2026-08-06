@@ -6,6 +6,8 @@ import { experience } from '@/data/resume'
 import doomBadge from '@/assets/doom-medallion.svg'
 import { assetUrl } from '@/lib/assetUrl'
 
+const fallbackLogo = assetUrl(doomBadge)
+
 export default function Experience() {
   return (
     <section id="experience" className="section-space bg-surface/30">
@@ -68,7 +70,16 @@ export default function Experience() {
                     <h3 className="mt-3 font-display text-xl font-semibold text-heading">
                       <HoverLetters text={item.role} />
                     </h3>
-                    <p className="mt-2 text-sm font-medium text-body">{item.company}</p>
+                    <div className="mt-2 flex items-center gap-2.5">
+                      <img
+                        src={item.logo || fallbackLogo}
+                        alt=""
+                        aria-hidden="true"
+                        data-rain-ignore
+                        className="h-7 w-7 shrink-0 rounded-md border border-line object-cover"
+                      />
+                      <p className="text-sm font-medium text-body">{item.company}</p>
+                    </div>
                     {item.location && (
                       <p className="mt-2 flex items-center gap-2 font-mono text-[10px] text-muted">
                         <MapPin size={12} /> {item.location}
@@ -86,11 +97,10 @@ export default function Experience() {
                 </div>
 
                 <div className="relative z-10 order-1 flex justify-center md:order-none md:col-start-2 md:row-start-1">
-                  <span className="grid h-12 w-12 place-items-center rounded-full border border-accent/60 bg-background p-1 shadow-glow">
+                  <span className="grid h-12 w-12 place-items-center overflow-hidden rounded-full border border-accent/60 bg-background p-0.5 shadow-glow">
                     <img
-                      src={assetUrl(doomBadge)}
-                      alt=""
-                      aria-hidden="true"
+                      src={item.logo || fallbackLogo}
+                      alt={`${item.company} logo`}
                       data-rain-ignore
                       className="h-full w-full rounded-full object-cover"
                     />

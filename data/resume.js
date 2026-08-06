@@ -1,3 +1,8 @@
+import hofglobalLogo from '@/assets/companies/hofglobal.jpg'
+import wpwizardsLogo from '@/assets/companies/wpwizards.jpg'
+import a2zLogo from '@/assets/companies/a2z.jpg'
+import { assetUrl } from '@/lib/assetUrl'
+
 export const experience = [
   {
     role: 'Full-Stack Developer Intern',
@@ -5,6 +10,7 @@ export const experience = [
     location: null,
     duration: 'Present',
     current: true,
+    logo: assetUrl(hofglobalLogo),
     highlights: [
       'Developing practical full-stack experience while contributing to modern digital products.',
     ],
@@ -14,6 +20,7 @@ export const experience = [
     company: 'WPWizards',
     location: 'Lahore, Pakistan',
     duration: '1 year 3 months',
+    logo: assetUrl(wpwizardsLogo),
     highlights: [
       'Developed multiple pixel-perfect WordPress websites using Elementor.',
       'Strengthened core JavaScript concepts through practical development experience.',
@@ -25,6 +32,7 @@ export const experience = [
     company: 'WPWizards',
     location: 'Lahore, Pakistan',
     duration: '3 months',
+    logo: assetUrl(wpwizardsLogo),
     highlights: [
       'Learned JavaScript while gaining practical HTML and CSS experience.',
       'Developed project websites and explored foundational React.js concepts.',
@@ -36,6 +44,7 @@ export const experience = [
     company: 'A2Z Tech',
     location: 'Muridke, Pakistan',
     duration: '2 months',
+    logo: assetUrl(a2zLogo),
     highlights: [
       'Collaborated with senior team members on operational and data tasks.',
       'Built foundational web development skills using HTML and CSS.',
