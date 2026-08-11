@@ -25,7 +25,7 @@ export const metadata = {
 }
 
 export const viewport = {
-  themeColor: '#08090B',
+  themeColor: '#F7F7F8',
   width: 'device-width',
   initialScale: 1,
 }
@@ -51,12 +51,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               (function () {
                 try {
                   var savedTheme = localStorage.getItem('portfolio-theme');
-                  var prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-                  document.documentElement.classList.toggle(
-                    'light',
-                    savedTheme ? savedTheme === 'light' : prefersLight
-                  );
-                } catch (e) {}
+                  var useLight = savedTheme ? savedTheme === 'light' : true;
+                  document.documentElement.classList.toggle('light', useLight);
+                } catch (e) {
+                  document.documentElement.classList.add('light');
+                }
               })();
             `,
           }}

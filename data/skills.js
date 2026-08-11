@@ -1,9 +1,9 @@
-// Unified Doom-green tint so brand marks blend with the site accent.
+// Theme-aware mono tint: light-gray icons (visible on dark). Light mode darkens via CSS.
 import vscodeLogo from '@/assets/logos/vscode.svg'
 import { assetUrl } from '@/lib/assetUrl'
 
-const GREEN = '68C17A'
-const logo = (slug) => `https://cdn.simpleicons.org/${slug}/${GREEN}`
+const ICON = 'D4D4D8'
+const logo = (slug) => `https://cdn.simpleicons.org/${slug}/${ICON}`
 const vscodeLogoUrl = assetUrl(vscodeLogo)
 
 export const skillGroups = [

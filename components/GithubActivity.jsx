@@ -10,9 +10,9 @@ const githubUsername =
   profile.githubUsername ||
   profile.github.replace(/https?:\/\/(www\.)?github\.com\//, '').replace(/\/$/, '')
 
-const doomTheme = {
-  dark: ['#1a221c', '#234032', '#356b4a', '#4f9a67', '#69a77d'],
-  light: ['#dce8df', '#a8cbb3', '#6f9f7d', '#457a58', '#2f5a3f'],
+const calendarTheme = {
+  dark: ['#27272a', '#3f3f46', '#52525b', '#a1a1aa', '#e4e4e7'],
+  light: ['#e4e4e7', '#a1a1aa', '#71717a', '#52525b', '#27272a'],
 }
 
 const WEEKS = 53
@@ -64,7 +64,7 @@ export default function GithubActivity() {
         <SectionHeading
           label="Activity"
           title="Days I Code."
-          description="A live view of my GitHub contribution rhythm — green-tinted to match the storm theme of this portfolio."
+          description="A live view of my GitHub contribution rhythm across the last year."
         />
 
         <motion.div
@@ -77,7 +77,7 @@ export default function GithubActivity() {
             <GitHubCalendar
               username={githubUsername}
               colorScheme={scheme}
-              theme={doomTheme}
+              theme={calendarTheme}
               blockSize={blockSize}
               blockMargin={BLOCK_MARGIN}
               blockRadius={2}

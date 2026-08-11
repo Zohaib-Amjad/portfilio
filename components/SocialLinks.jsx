@@ -6,7 +6,7 @@ import linkedinLogo from '@/assets/logos/linkedin.svg'
 import { profile } from '@/data/profile'
 import { assetUrl } from '@/lib/assetUrl'
 
-const GREEN = '68C17A'
+const ICON = 'D4D4D8'
 
 const localLogos = {
   linkedin: assetUrl(linkedinLogo),
@@ -19,11 +19,11 @@ function toWhatsAppHref(phone) {
 function socialIcon(social) {
   return (
     <img
-      src={localLogos[social.id] || `https://cdn.simpleicons.org/${social.slug}/${GREEN}`}
+      src={localLogos[social.id] || `https://cdn.simpleicons.org/${social.slug}/${ICON}`}
       alt=""
       aria-hidden="true"
       data-rain-ignore
-      className="h-4 w-4 object-contain opacity-90"
+      className="skill-logo h-4 w-4 object-contain opacity-90"
       loading="lazy"
       decoding="async"
     />

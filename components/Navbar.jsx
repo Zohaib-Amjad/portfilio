@@ -14,8 +14,6 @@ import {
   Sparkles,
   Sun,
   UserRound,
-  Volume2,
-  VolumeX,
   X,
 } from 'lucide-react'
 import { projects } from '@/data/projects'
@@ -52,24 +50,19 @@ const searchItems = [
 
 function Logo() {
   return (
-    <a href="#home" className="group flex shrink-0 items-center" aria-label="Zohaib — home">
+    <a href="#home" className="group relative z-[1] flex shrink-0 items-center" aria-label="Zohaib — home">
       <img
         src={assetUrl(logo)}
         alt="Zohaib"
-        className="brand-logo h-9 w-auto max-w-[10.5rem] object-contain object-left transition-transform duration-300 group-hover:scale-[1.03] sm:h-10 sm:max-w-[13rem] lg:h-11 lg:max-w-[15rem]"
-        width="240"
-        height="100"
+        className="brand-logo h-16 w-16 object-contain transition-transform duration-300 group-hover:scale-[1.04] sm:h-20 sm:w-20 lg:h-24 lg:w-24"
+        width="96"
+        height="96"
       />
     </a>
   )
 }
 
-export default function Navbar({
-  soundEnabled,
-  soundVolume,
-  onSoundToggle,
-  onSoundVolumeChange,
-}) {
+export default function Navbar() {
   const [open, setOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
   const [query, setQuery] = useState('')
@@ -132,7 +125,7 @@ export default function Navbar({
           : 'shadow-[0_12px_40px_rgba(0,0,0,0.14)]'
       }`}
     >
-      <nav className="relative flex h-16 items-center justify-between px-5 sm:px-6" aria-label="Main navigation">
+      <nav className="relative flex h-16 items-center justify-between overflow-visible px-5 sm:h-[4.5rem] sm:px-6" aria-label="Main navigation">
         <Logo />
 
         <div className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-0.5 lg:flex xl:gap-1">
@@ -150,12 +143,6 @@ export default function Navbar({
 
         <div className="flex items-center gap-1 sm:gap-2">
           <SearchButton onClick={() => setSearchOpen(true)} />
-          <SoundToggle
-            enabled={soundEnabled}
-            volume={soundVolume}
-            onToggle={onSoundToggle}
-            onVolumeChange={onSoundVolumeChange}
-          />
           <ThemeToggle isLight={isLight} onToggle={toggleTheme} />
           <button
             type="button"
@@ -229,78 +216,6 @@ function SearchButton({ onClick }) {
     >
       <Search size={17} />
     </button>
-  )
-}
-
-function SoundToggle({ enabled, volume, onToggle, onVolumeChange }) {
-  const [controlsOpen, setControlsOpen] = useState(false)
-
-  return (
-    <div
-      className="relative"
-      onMouseEnter={() => setControlsOpen(true)}
-      onMouseLeave={() => setControlsOpen(false)}
-      onFocus={() => setControlsOpen(true)}
-      onBlur={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget)) setControlsOpen(false)
-      }}
-    >
-      <button
-        type="button"
-        className="icon-button h-10 w-10"
-        aria-label={enabled ? 'Mute weather sounds' : 'Enable weather sounds'}
-        aria-pressed={enabled}
-        aria-expanded={controlsOpen}
-        title={enabled ? 'Mute weather sounds' : 'Enable weather sounds'}
-        onClick={() => {
-          setControlsOpen(true)
-          onToggle()
-        }}
-      >
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.span
-            key={enabled ? 'sound-on' : 'sound-off'}
-            className="grid place-items-center"
-            initial={{ opacity: 0, scale: 0.7 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.7 }}
-            transition={{ duration: 0.16 }}
-          >
-            {enabled ? <Volume2 size={17} /> : <VolumeX size={17} />}
-          </motion.span>
-        </AnimatePresence>
-      </button>
-
-      <AnimatePresence>
-        {controlsOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -6, scale: 0.96 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -6, scale: 0.96 }}
-            className="absolute right-0 top-12 z-[70] w-48 rounded-xl border border-white/10 bg-panel/95 p-4 shadow-2xl backdrop-blur-xl"
-          >
-            <div className="mb-3 flex items-center justify-between gap-3">
-              <span className="font-mono text-[10px] uppercase tracking-wider text-muted">
-                Weather volume
-              </span>
-              <span className="font-mono text-[10px] text-accent">
-                {Math.round(volume * 100)}%
-              </span>
-            </div>
-            <input
-              type="range"
-              min="0"
-              max="1"
-              step="0.05"
-              value={volume}
-              onChange={(event) => onVolumeChange(Number(event.target.value))}
-              className="sound-range block w-full cursor-pointer"
-              aria-label="Weather sound volume"
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
   )
 }
 

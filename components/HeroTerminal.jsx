@@ -117,7 +117,7 @@ export default function HeroTerminal() {
       className="relative ml-auto hidden w-full max-w-lg lg:block lg:justify-self-end"
       aria-hidden="true"
     >
-      <div className="code-window storm-card overflow-hidden">
+      <div className="code-window overflow-hidden shadow-[0_28px_65px_rgba(0,0,0,0.28)]">
         <div className="flex items-center gap-2 border-b border-white/10 px-5 py-4">
           <span className="h-2.5 w-2.5 rounded-full bg-[#4a5560]" />
           <span className="h-2.5 w-2.5 rounded-full bg-[#5d6b74]" />
