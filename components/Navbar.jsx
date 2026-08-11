@@ -20,7 +20,7 @@ import {
 } from 'lucide-react'
 import { projects } from '@/data/projects'
 import { skillGroups } from '@/data/skills'
-import logo from '@/assets/Logo.png'
+import logo from '@/assets/logo-nav.png'
 import { assetUrl } from '@/lib/assetUrl'
 
 const links = [
@@ -52,16 +52,14 @@ const searchItems = [
 
 function Logo() {
   return (
-    <a href="#home" className="group flex items-center gap-3" aria-label="Zohaib — home">
-      <span className="brand-logo-frame flex h-10 w-20 items-center justify-center overflow-hidden rounded-xl border border-accent/30 shadow-glow transition-transform duration-300 group-hover:-rotate-1 group-hover:scale-[1.03] sm:w-24 lg:h-12 lg:w-36">
-        <img
-          src={assetUrl(logo)}
-          alt="Zohaib"
-          className="brand-logo h-full w-full object-cover object-center"
-          width="144"
-          height="48"
-        />
-      </span>
+    <a href="#home" className="group flex shrink-0 items-center" aria-label="Zohaib — home">
+      <img
+        src={assetUrl(logo)}
+        alt="Zohaib"
+        className="brand-logo h-9 w-auto max-w-[10.5rem] object-contain object-left transition-transform duration-300 group-hover:scale-[1.03] sm:h-10 sm:max-w-[13rem] lg:h-11 lg:max-w-[15rem]"
+        width="240"
+        height="100"
+      />
     </a>
   )
 }

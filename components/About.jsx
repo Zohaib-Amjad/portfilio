@@ -3,8 +3,8 @@ import { ArrowUpRight, Check } from 'lucide-react'
 import HoverLetters from '@/components/HoverLetters'
 import SectionHeading from '@/components/SectionHeading'
 import { profile } from '@/data/profile'
-import profileImage from '@/assets/portrait-base-green.webp'
-import hoverProfileImage from '@/assets/portrait-hover-green.webp'
+import profileImage from '@/assets/e.png'
+import hoverProfileImage from '@/assets/d.png'
 import { assetUrl } from '@/lib/assetUrl'
 
 const focus = ['Next.js architecture', 'Payload CMS builds', 'Supabase products']

@@ -11,6 +11,7 @@ export const experience = [
     duration: 'Present',
     current: true,
     logo: assetUrl(hofglobalLogo),
+    logoOnLight: true,
     highlights: [
       'Developing practical full-stack experience while contributing to modern digital products.',
     ],
@@ -34,6 +35,7 @@ export const experience = [
     location: 'Muridke, Pakistan',
     duration: '2 months',
     logo: assetUrl(a2zLogo),
+    logoOnLight: true,
     highlights: [
       'Collaborated with senior team members on operational and data tasks.',
       'Built foundational web development skills using HTML and CSS.',

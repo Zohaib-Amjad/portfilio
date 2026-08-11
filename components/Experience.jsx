@@ -8,6 +8,30 @@ import { assetUrl } from '@/lib/assetUrl'
 
 const fallbackLogo = assetUrl(doomBadge)
 
+function CompanyLogo({ item, size = 'md' }) {
+  const onLight = item.logoOnLight
+  const isTimeline = size === 'lg'
+  const frameClass = isTimeline
+    ? 'h-12 w-12 rounded-full border-accent/60 shadow-glow'
+    : 'h-7 w-7 rounded-md border-line'
+
+  return (
+    <span
+      className={`grid shrink-0 place-items-center overflow-hidden border ${frameClass} ${
+        onLight ? 'bg-white' : 'bg-background'
+      }`}
+    >
+      <img
+        src={item.logo || fallbackLogo}
+        alt={isTimeline ? `${item.company} logo` : ''}
+        aria-hidden={isTimeline ? undefined : true}
+        data-rain-ignore
+        className="h-full w-full object-cover object-center"
+      />
+    </span>
+  )
+}
+
 export default function Experience() {
   return (
     <section id="experience" className="section-space bg-surface/30">
@@ -71,15 +95,7 @@ export default function Experience() {
                       <HoverLetters text={item.role} />
                     </h3>
                     <div className="mt-2 flex items-center gap-2.5">
-                      <img
-                        src={item.logo || fallbackLogo}
-                        alt=""
-                        aria-hidden="true"
-                        data-rain-ignore
-                        className={`h-7 w-7 shrink-0 rounded-md border border-line object-contain p-0.5 ${
-                          item.company === 'HOF-Global' ? 'bg-white' : 'bg-background'
-                        }`}
-                      />
+                      <CompanyLogo item={item} size="sm" />
                       <p className="text-sm font-medium text-body">{item.company}</p>
                     </div>
                     {item.location && (
@@ -99,18 +115,7 @@ export default function Experience() {
                 </div>
 
                 <div className="relative z-10 order-1 flex justify-center md:order-none md:col-start-2 md:row-start-1">
-                  <span
-                    className={`grid h-12 w-12 place-items-center overflow-hidden rounded-full border border-accent/60 p-1 shadow-glow ${
-                      item.company === 'HOF-Global' ? 'bg-white' : 'bg-background'
-                    }`}
-                  >
-                    <img
-                      src={item.logo || fallbackLogo}
-                      alt={`${item.company} logo`}
-                      data-rain-ignore
-                      className="h-full w-full rounded-full object-contain"
-                    />
-                  </span>
+                  <CompanyLogo item={item} size="lg" />
                 </div>
 
                 <div
