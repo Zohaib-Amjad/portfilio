@@ -11,8 +11,8 @@ export const profile = {
   phone: '+92 316 4232384',
   phones: ['+92 316 4232384', '+92 302 9629511'],
   location: 'Lahore, Pakistan',
-  github: 'https://github.com/zohaibamjad1003',
-  githubUsername: 'zohaibamjad1003',
+  github: 'https://github.com/Zohaib-Amjad',
+  githubUsername: 'Zohaib-Amjad',
   linkedin: 'https://www.linkedin.com/in/zohaibamjad1003/',
   resumeUrl: 'https://zohaibamjad-resume.vercel.app/',
   socials: [
@@ -31,7 +31,7 @@ export const profile = {
     {
       id: 'github',
       label: 'GitHub',
-      href: 'https://github.com/zohaibamjad1003',
+      href: 'https://github.com/Zohaib-Amjad',
       slug: 'github',
     },
     {

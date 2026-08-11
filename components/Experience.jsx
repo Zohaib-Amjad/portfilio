@@ -76,7 +76,9 @@ export default function Experience() {
                         alt=""
                         aria-hidden="true"
                         data-rain-ignore
-                        className="h-7 w-7 shrink-0 rounded-md border border-line object-cover"
+                        className={`h-7 w-7 shrink-0 rounded-md border border-line object-contain p-0.5 ${
+                          item.company === 'HOF-Global' ? 'bg-white' : 'bg-background'
+                        }`}
                       />
                       <p className="text-sm font-medium text-body">{item.company}</p>
                     </div>
@@ -97,12 +99,16 @@ export default function Experience() {
                 </div>
 
                 <div className="relative z-10 order-1 flex justify-center md:order-none md:col-start-2 md:row-start-1">
-                  <span className="grid h-12 w-12 place-items-center overflow-hidden rounded-full border border-accent/60 bg-background p-0.5 shadow-glow">
+                  <span
+                    className={`grid h-12 w-12 place-items-center overflow-hidden rounded-full border border-accent/60 p-1 shadow-glow ${
+                      item.company === 'HOF-Global' ? 'bg-white' : 'bg-background'
+                    }`}
+                  >
                     <img
                       src={item.logo || fallbackLogo}
                       alt={`${item.company} logo`}
                       data-rain-ignore
-                      className="h-full w-full rounded-full object-cover"
+                      className="h-full w-full rounded-full object-contain"
                     />
                   </span>
                 </div>

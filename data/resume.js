@@ -19,24 +19,13 @@ export const experience = [
     role: 'WordPress Developer',
     company: 'WPWizards',
     location: 'Lahore, Pakistan',
-    duration: '1 year 3 months',
+    duration: '1 year 6 months',
     logo: assetUrl(wpwizardsLogo),
     highlights: [
+      'Progressed from intern to WordPress Developer, shipping production client sites.',
       'Developed multiple pixel-perfect WordPress websites using Elementor.',
-      'Strengthened core JavaScript concepts through practical development experience.',
-      'Learned React.js to build modern and scalable web applications.',
-    ],
-  },
-  {
-    role: 'WordPress Developer Intern',
-    company: 'WPWizards',
-    location: 'Lahore, Pakistan',
-    duration: '3 months',
-    logo: assetUrl(wpwizardsLogo),
-    highlights: [
-      'Learned JavaScript while gaining practical HTML and CSS experience.',
-      'Developed project websites and explored foundational React.js concepts.',
       'Converted Figma designs into responsive coded and WordPress pages.',
+      'Strengthened JavaScript fundamentals and learned React.js for modern web apps.',
     ],
   },
   {

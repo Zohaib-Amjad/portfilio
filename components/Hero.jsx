@@ -11,12 +11,12 @@ export default function Hero() {
   const typedRole = useTypingEffect(roles)
 
   return (
-    <section id="home" className="storm-hero relative flex min-h-screen items-center overflow-hidden pt-24">
+    <section id="home" className="storm-hero relative flex min-h-screen items-start overflow-hidden pt-24 md:items-center md:pt-24">
       <div className="grid-overlay absolute inset-0 opacity-40" aria-hidden="true" />
       <div className="orb -left-40 top-32" aria-hidden="true" />
       <div className="doom-glow -right-48 top-24" aria-hidden="true" />
 
-      <div className="container-shell relative z-10 grid items-center gap-16 py-20 lg:grid-cols-[1.1fr_.9fr]">
+      <div className="container-shell relative z-10 grid w-full items-center gap-10 py-8 sm:gap-14 sm:py-14 md:gap-16 md:py-20 lg:grid-cols-[1.1fr_.9fr]">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
