@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server'
-import connectDB from '@/lib/db'
-import Message from '@/lib/models/Message'
+import { getSupabaseAdmin } from '@/lib/supabase'
 import { verifyRecaptcha } from '@/lib/recaptcha'
 
 function validateContact(body) {
@@ -68,18 +67,30 @@ export async function POST(request) {
       )
     }
 
-    await connectDB()
-    const savedMessage = await Message.create({
-      name: data.name,
-      email: data.email,
-      message: data.message,
-    })
+    const supabase = getSupabaseAdmin()
+    const { data: saved, error } = await supabase
+      .from('contacts')
+      .insert({
+        name: data.name,
+        email: data.email.toLowerCase(),
+        message: data.message,
+      })
+      .select('id')
+      .single()
+
+    if (error) {
+      console.error('[contact] supabase', error)
+      return NextResponse.json(
+        { success: false, message: 'Unable to send your message right now.' },
+        { status: 500 },
+      )
+    }
 
     return NextResponse.json(
       {
         success: true,
         message: 'Message received. I will get back to you soon.',
-        data: { id: savedMessage._id },
+        data: { id: saved?.id },
       },
       { status: 201 },
     )
