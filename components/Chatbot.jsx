@@ -21,6 +21,7 @@ export default function Chatbot() {
   const [messages, setMessages] = useState([welcome])
   const [sending, setSending] = useState(false)
   const [error, setError] = useState('')
+  const [replyMode, setReplyMode] = useState('')
   const listRef = useRef(null)
   const inputRef = useRef(null)
 
@@ -60,6 +61,7 @@ export default function Chatbot() {
         throw new Error(payload.message || 'Could not get a reply.')
       }
 
+      setReplyMode(payload.mode || '')
       setMessages((current) => [
         ...current,
         { role: 'assistant', content: payload.reply || 'No reply received.' },
@@ -111,7 +113,13 @@ export default function Chatbot() {
                 </span>
                 <div>
                   <p className="font-display text-sm font-semibold text-heading">Ask Zohaib</p>
-                  <p className="font-mono text-[10px] text-muted">Portfolio assistant</p>
+                  <p className="font-mono text-[10px] text-muted">
+                    {replyMode === 'llm'
+                      ? 'Groq + portfolio knowledge'
+                      : replyMode === 'local'
+                        ? 'Rule-based FAQ'
+                        : 'Hybrid assistant'}
+                  </p>
                 </div>
               </div>
               <button

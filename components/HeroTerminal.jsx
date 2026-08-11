@@ -16,7 +16,7 @@ const script = [
   { type: 'cmd', prompt: '~/portfolio', cmd: 'ls ./skills' },
   {
     type: 'tags',
-    items: ['React', 'Next.js', 'Node.js', 'MongoDB', 'TypeScript', 'WordPress', 'Supabase'],
+    items: ['React', 'Next.js', 'Node.js', 'Supabase', 'TypeScript', 'WordPress', 'MongoDB'],
   },
 ]
 

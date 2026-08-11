@@ -19,8 +19,8 @@ export const projects = [
     number: '02',
     title: 'Next.js Portfolio',
     description:
-      'This responsive portfolio: an animated Next.js interface with contact API routes and MongoDB persistence.',
-    technologies: ['Next.js', 'React', 'MongoDB', 'Tailwind'],
+      'This responsive portfolio: an animated Next.js interface with contact API routes and Supabase persistence.',
+    technologies: ['Next.js', 'React', 'Supabase', 'Tailwind'],
     liveUrl: '#home',
     githubUrl: 'https://github.com/Zohaib-Amjad',
     image: assetUrl(portfolioPreview),
