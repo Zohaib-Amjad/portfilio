@@ -7,7 +7,8 @@ export const metadata = {
   description:
     'Zohaib is a full-stack developer and software engineer building reliable digital products across frontend, backend, CMS, and database technologies.',
   icons: {
-    icon: '/favicon.png',
+    icon: [{ url: '/favicon.png', type: 'image/png' }],
+    apple: '/apple-icon.png',
   },
   authors: [{ name: 'Zohaib' }],
   openGraph: {
