@@ -6,7 +6,7 @@ export default function Footer() {
           © {new Date().getFullYear()} Zohaib. Built with intent.
         </p>
         <p className="mt-2 font-mono text-[10px] text-faint">
-          React · Express · MongoDB
+          React · Next.js · Supabase
         </p>
       </div>
     </footer>
